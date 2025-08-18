@@ -21,8 +21,6 @@ import '../../../widgets/my_widgets.dart';
 // ignore: must_be_immutable
 class PlantingRetunList extends StatefulWidget {
   String title = "Planting returns";
-  //TODO if basic user?
-  // String title = "My planting returns";
 
   PlantingRetunList({Key? key}) : super(key: key);
 

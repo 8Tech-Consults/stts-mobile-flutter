@@ -21,16 +21,17 @@ class PlantingController extends ChangeNotifier {
   List<Inspection> assignedS10s = [];
   List<Inspection> assignedQDs = [];
 
-  Future getCrops() async {
+  Future<void> getCrops() async {
     try {
-      crops = [];
-      List<Crop> results = await PlantingRepository.getCrops();
+      final List<Crop> results = await PlantingRepository.getCrops();
 
-      crops.addAll(results);
+      crops = results; // directly assign instead of clearing + addAll
+      notifyListeners(); // notify UI to rebuild
     } catch (e) {
       rethrow;
     }
   }
+
 
   Future getCropVarieties() async {
     try {
@@ -51,7 +52,8 @@ class PlantingController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       MethodHelpers.showSuccessWithNoActionButton(
-          "Thank you for your submission");
+        "Thank you for your submission",
+      );
     } catch (e) {
       MethodHelpers.dioErrorHandler(e);
     }
@@ -60,7 +62,9 @@ class PlantingController extends ChangeNotifier {
   }
 
   void updatePlantingReturn(
-      UpdatePlantingReturn updatePlantingReturn, id) async {
+    UpdatePlantingReturn updatePlantingReturn,
+    id,
+  ) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -68,7 +72,8 @@ class PlantingController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       MethodHelpers.showSuccessWithNoActionButton(
-          "Thank you for your submission");
+        "Thank you for your submission",
+      );
     } catch (e) {
       MethodHelpers.dioErrorHandler(e);
     }
@@ -77,7 +82,9 @@ class PlantingController extends ChangeNotifier {
   }
 
   void updateQDSDeclaration(
-      UpdateCropDeclaration updateCropDeclaration, id) async {
+    UpdateCropDeclaration updateCropDeclaration,
+    id,
+  ) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -85,7 +92,8 @@ class PlantingController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       MethodHelpers.showSuccessWithNoActionButton(
-          "Thank you for your submission");
+        "Thank you for your submission",
+      );
     } catch (e) {
       MethodHelpers.dioErrorHandler(e);
     }
@@ -94,13 +102,17 @@ class PlantingController extends ChangeNotifier {
   }
 
   void submitCropInspection(
-      AddInspection addInspection, id, bool isCrop) async {
+    AddInspection addInspection,
+    id,
+    bool isCrop,
+  ) async {
     try {
       isLoading = true;
       notifyListeners();
       await PlantingRepository.submitInspection(addInspection, id, isCrop);
       MethodHelpers.showSuccessWithNoActionButton(
-          "Thank you for your submission");
+        "Thank you for your submission",
+      );
     } catch (e) {
       MethodHelpers.dioErrorHandler(e);
     }
@@ -116,7 +128,8 @@ class PlantingController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       MethodHelpers.showSuccessWithNoActionButton(
-          "Thank you for your submission");
+        "Thank you for your submission",
+      );
     } catch (e) {
       MethodHelpers.dioErrorHandler(e);
     }
@@ -131,10 +144,7 @@ class PlantingController extends ChangeNotifier {
       notifyListeners();
     }
     try {
-      await Future.wait([
-        getCrops(),
-        getCropVarieties(),
-      ], eagerError: true);
+      await Future.wait([getCrops(), getCropVarieties()], eagerError: true);
 
       exception = null;
     } catch (e) {
@@ -151,8 +161,9 @@ class PlantingController extends ChangeNotifier {
     }
     try {
       inspections = [];
-      List<AssignedInpection> results =
-          await PlantingRepository.getInspections(id);
+      List<AssignedInpection> results = await PlantingRepository.getInspections(
+        id,
+      );
 
       inspections.addAll(results);
     } catch (e) {

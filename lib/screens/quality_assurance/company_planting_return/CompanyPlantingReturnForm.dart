@@ -73,8 +73,10 @@ class CompanyPlantingReturnFormState extends State<CompanyPlantingReturnForm> {
 
     if (!_fKey.currentState!.validate()) {
       Utils.showSnackBar(
-          "Please Check errors in the form and fix them first.", context,
-          background_color: Colors.red);
+        "Please Check errors in the form and fix them first.",
+        context,
+        background_color: Colors.red,
+      );
       return;
     }
 
@@ -93,8 +95,9 @@ class CompanyPlantingReturnFormState extends State<CompanyPlantingReturnForm> {
     is_loading = true;
     setState(() {});
 
-    RespondModel resp =
-        RespondModel(await Utils.http_post('planting-returns-company/new/', f));
+    RespondModel resp = RespondModel(
+      await Utils.http_post('planting-returns-company/new/', f),
+    );
     is_loading = false;
     setState(() {});
 
@@ -113,242 +116,246 @@ class CompanyPlantingReturnFormState extends State<CompanyPlantingReturnForm> {
     Utils.init_theme();
 
     return Consumer<AppNotifier>(
-        builder: (BuildContext context, AppNotifier value, Widget? child) {
-      return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: CustomTheme.primary,
-          // remove back button in appbar.
+      builder: (BuildContext context, AppNotifier value, Widget? child) {
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: CustomTheme.primary,
 
-          elevation: 1,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
+            // remove back button in appbar.
+            elevation: 1,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
                     padding: FxSpacing.x(0),
                     child: Icon(
                       CupertinoIcons.clear,
                       color: Colors.white,
                       size: 20,
-                    )),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FxText(
-                      'Company Planting Return',
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: 700,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Expanded(child: Text("")),
-              (is_loading)
-                  ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.0,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-                        ),
+                Container(
+                  margin: EdgeInsets.only(left: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FxText(
+                        'Company Planting Return',
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: 700,
                       ),
-                    )
-                  : InkWell(
-                      onTap: () {
-                        do_upload_process();
-                      },
-                      child: Container(
+                    ],
+                  ),
+                ),
+                Expanded(child: Text("")),
+                (is_loading)
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.red,
+                            ),
+                          ),
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          do_upload_process();
+                        },
+                        child: Container(
                           padding: FxSpacing.x(10),
                           child: Icon(
                             CupertinoIcons.check_mark,
                             size: 25,
                             color: Colors.white,
-                          )),
-                    ),
-            ],
+                          ),
+                        ),
+                      ),
+              ],
+            ),
           ),
-        ),
-        body: FutureBuilder(
+          body: FutureBuilder(
             future: init_form(),
             builder: (context, snapshot) => FormBuilder(
-                  key: _fKey,
-                  child: Stack(
-                    children: [
-                      CustomScrollView(
-                        slivers: [
-                          SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                                return Container(
-                                    padding: EdgeInsets.all(0),
+              key: _fKey,
+              child: Stack(
+                children: [
+                  CustomScrollView(
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return Container(
+                              padding: EdgeInsets.all(0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      left: 15,
+                                      top: 5,
+                                      right: 15,
+                                    ),
                                     child: Column(
                                       children: [
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                            left: 15,
-                                            top: 5,
-                                            right: 15,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              SizedBox(height: 10),
-                                              FormBuilderTextField(
-                                                  textCapitalization:
-                                                      TextCapitalization
-                                                          .sentences,
-                                                  name: "name",
-                                                  validator: MyWidgets
-                                                      .my_validator_field_required(
-                                                          context,
-                                                          'Company Name'),
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  decoration: customTheme
-                                                      .inputDecoration3(
-                                                    labelText: "Company Name",
-                                                  )),
-                                              SizedBox(height: 10),
-                                              FormBuilderTextField(
-                                                decoration: customTheme
-                                                    .inputDecoration3(
-                                                  labelText: "Company Address",
-                                                ),
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .sentences,
-                                                name: "address",
-                                                validator: MyWidgets
-                                                    .my_validator_field_required(
-                                                        context,
-                                                        'Company Address'),
-                                                textInputAction:
-                                                    TextInputAction.next,
+                                        SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "name",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Company Name',
                                               ),
-                                              SizedBox(height: 10),
-                                              FormBuilderTextField(
-                                                keyboardType:
-                                                    TextInputType.phone,
-                                                decoration: customTheme
-                                                    .inputDecoration3(
-                                                  labelText: "Phone number",
-                                                ),
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .sentences,
-                                                name: "telephone",
-                                                minLines: 1,
-                                                maxLines: 3,
-                                                validator: MyWidgets
-                                                    .my_validator_field_required(
-                                                        context,
-                                                        'Phone number'),
-                                                textInputAction:
-                                                    TextInputAction.newline,
+                                          textInputAction: TextInputAction.next,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Company Name",
                                               ),
-                                              SizedBox(height: 10),
-                                              FormBuilderTextField(
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                decoration: customTheme
-                                                    .inputDecoration3(
-                                                  labelText:
-                                                      "Amount enclosed for application",
-                                                ),
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .sentences,
-                                                name: "amount_enclosed",
-                                                validator: MyWidgets
-                                                    .my_validator_field_required(
-                                                        context, 'Amount'),
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                              ),
-                                              SizedBox(height: 10),
-                                              FormBuilderTextField(
-                                                decoration: customTheme
-                                                    .inputDecoration3(
-                                                  labelText:
-                                                      "Registered seed merchant/dealer",
-                                                ),
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .sentences,
-                                                name: "registerd_dealer",
-                                                validator: MyWidgets
-                                                    .my_validator_field_required(
-                                                        context,
-                                                        'Registered seed merchant/dealer'),
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                              ),
-                                              SizedBox(height: 10),
-                                            ],
-                                          ),
                                         ),
+                                        SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Company Address",
+                                              ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "address",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Company Address',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.phone,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Phone number",
+                                              ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "telephone",
+                                          minLines: 1,
+                                          maxLines: 3,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Phone number',
+                                              ),
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                        ),
+                                        SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme.inputDecoration3(
+                                            labelText:
+                                                "Amount enclosed for application",
+                                          ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "amount_enclosed",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Amount',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          decoration: customTheme.inputDecoration3(
+                                            labelText:
+                                                "Registered seed merchant/dealer",
+                                          ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "registerd_dealer",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Registered seed merchant/dealer',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        SizedBox(height: 10),
                                       ],
-                                    ));
-                              },
-                              childCount: 1, // 1000 list items
-                            ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: (is_loading)
-                            ? Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2.0,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.red),
+                                    ),
                                   ),
-                                ),
-                              )
-                            : FxButton.block(
-                                borderRadiusAll: 0,
-                                onPressed: () {
-                                  //showMyDialog(context);
-                                  do_upload_process();
-                                },
-                                backgroundColor: CustomTheme.primary,
-                                child: FxText(
-                                  "SUBMIT",
-                                  fontSize: 18,
-                                  color: customTheme.cookifyOnPrimary,
-                                )),
-                      )
+                                ],
+                              ),
+                            );
+                          },
+                          childCount: 1, // 1000 list items
+                        ),
+                      ),
                     ],
                   ),
-                )),
-      );
-    });
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: (is_loading)
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.0,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.red,
+                                ),
+                              ),
+                            ),
+                          )
+                        : FxButton.block(
+                            borderRadiusAll: 0,
+                            onPressed: () {
+                              //showMyDialog(context);
+                              do_upload_process();
+                            },
+                            backgroundColor: CustomTheme.primary,
+                            child: FxText(
+                              "SUBMIT",
+                              fontSize: 18,
+                              color: customTheme.cookifyOnPrimary,
+                            ),
+                          ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   final _fKey = GlobalKey<FormBuilderState>();
   String error_message = "";
 
-//end pick varieties
+  //end pick varieties
 
   showMyDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return _InternetCheckDialog();
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return _InternetCheckDialog();
+      },
+    );
   }
 }
 
@@ -377,11 +384,12 @@ class _InternetCheckDialog extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Center(
-                  child: Icon(
-                Icons.arrow_back,
-                size: 40,
-                color: theme.colorScheme.onBackground.withAlpha(220),
-              )),
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 40,
+                  color: theme.colorScheme.onBackground.withAlpha(220),
+                ),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
@@ -390,23 +398,27 @@ class _InternetCheckDialog extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Center(
-                  child: FxText("Please turn on internet", fontWeight: 500)),
+                child: FxText("Please turn on internet", fontWeight: 500),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Center(
                 child: FxButton(
-                    elevation: 2,
-                    borderRadiusAll: 4,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: FxText("CREATE ANOTHER TASK",
-                        fontWeight: 600,
-                        letterSpacing: 0.3,
-                        color: theme.colorScheme.onPrimary)),
+                  elevation: 2,
+                  borderRadiusAll: 4,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: FxText(
+                    "CREATE ANOTHER TASK",
+                    fontWeight: 600,
+                    letterSpacing: 0.3,
+                    color: theme.colorScheme.onPrimary,
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

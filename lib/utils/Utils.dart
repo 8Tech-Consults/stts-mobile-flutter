@@ -287,7 +287,7 @@ class Utils {
       return "";
     }
 
-    LoggedInUserModel u = await LoggedInUserModel.get_logged_in_user();
+    // LoggedInUserModel u = await LoggedInUserModel.get_logged_in_user();
 
     Response response;
 
@@ -325,7 +325,7 @@ class Utils {
         data: da,
         options: Options(
           headers: <String, String>{
-            "authorization": 'Bearer ${token}',
+            "authorization": 'Bearer $token',
             //"user": "${u.id}",
             "Content-Type": "application/json",
             "accept": "application/json",
@@ -336,7 +336,7 @@ class Utils {
 
       print(response.data);
       return jsonEncode(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       print("error: ${e.response?.data}");
       return jsonEncode(e.response?.data);
     }

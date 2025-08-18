@@ -1,11 +1,5 @@
-import 'dart:convert';
-
 import 'package:STTS/models/QDSModel.dart';
-import 'package:STTS/screens/home/quality_assurance.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutx/widgets/text/text.dart';
 import 'package:flutx/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +13,7 @@ import '../../models/FormSr6Model.dart';
 import '../../models/option_picker_model.dart';
 import '../../theme/app_notifier.dart';
 import '../../theme/app_theme.dart';
-import '../../theme/custom_theme.dart';
+// import '../../theme/custom_theme.dart';
 
 class home_fragment extends StatefulWidget {
   @override
