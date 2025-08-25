@@ -1,4 +1,5 @@
 import 'package:STTS/Constants/stts_uganda_exports.dart';
+import 'package:STTS/extensions/extensions.dart';
 import 'package:STTS/models/add_crop_declaration.dart';
 import 'package:STTS/models/add_inspection.dart';
 import 'package:STTS/models/add_planting_return.dart';
@@ -31,7 +32,6 @@ class PlantingController extends ChangeNotifier {
       rethrow;
     }
   }
-
 
   Future getCropVarieties() async {
     try {
@@ -245,5 +245,45 @@ class PlantingController extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+  }
+
+  /* String? getCropName(String? cropIdStr) {
+    if (cropIdStr == null) return null;
+
+    int? cropId = int.tryParse(cropIdStr); // safer than int.parse
+    if (cropId == null) return null;
+
+    try {
+      // debugPrint(cropId.toString());
+      getCrops();
+
+      String? cropName = crops.firstWhere((crop) => crop.id == cropId).name;
+      // debugPrint(cropName);
+      return cropName;
+    } catch (e) {
+      return null; // if not found
+    }
+  } */
+
+  String? getVarietyName(String? varietyIdStr) {
+    if (varietyIdStr == null) return null;
+
+    int? varietyId = int.tryParse(varietyIdStr); // safer than int.parse
+    if (varietyId == null) return null;
+
+    try {
+      if (cropVarieties.isEmpty) {
+        String? varietyName = cropVarieties
+            .firstWhere((variety) => variety.id == varietyId)
+            .name;
+        debugPrint(varietyName);
+        return varietyName;
+      } else {
+        // debugPrint(crops.toString());
+        return 'soybeans...';
+      }
+    } catch (e) {
+      return e.toString(); // if not found
+    }
   }
 }

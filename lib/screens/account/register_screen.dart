@@ -170,6 +170,60 @@ class RegisterScreenState extends State<RegisterScreen> {
                                         labelStyle: MyText.caption(context)),
                                   ),
                                   Container(height: 5),
+                                  /* FormBuilderTextField(
+                                    name: 'district',
+                                    autofocus: true,
+                                    textInputAction: TextInputAction.next,
+                                    keyboardType: TextInputType.text,
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(
+                                        // context,
+                                        errorText: "District is required.",
+                                      ),
+                                      FormBuilderValidators.minLength(
+                                        // context,
+                                        3,
+                                        errorText: "District input is too short.",
+                                      ),
+                                      FormBuilderValidators.maxLength(
+                                        // context,
+                                        30,
+                                        errorText: "District input is too long.",
+                                      ),
+                                    ]),
+                                    decoration: InputDecoration(
+                                        labelText: "District",
+                                        labelStyle: MyText.caption(context)),
+                                  ),
+                                  */ FormBuilderTextField(
+                                    name: 'district',
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    autofocus: true,
+                                    textInputAction: TextInputAction.next,
+                                    keyboardType: TextInputType.text,
+                                    validator: FormBuilderValidators.compose([
+                                      FormBuilderValidators.required(
+                                        // context,
+                                        errorText: "District is required.",
+                                      ),
+                                      FormBuilderValidators.minLength(
+                                        // context,
+                                        3,
+                                        errorText: "District too short.",
+                                      ),
+                                      FormBuilderValidators.maxLength(
+                                        // context,
+                                        30,
+                                        errorText: "District too long.",
+                                      ),
+                                    ]),
+                                    decoration: InputDecoration(
+                                        labelText: "District",
+                                        labelStyle: MyText.caption(context)),
+                                  ),
+                                  
+                                  Container(height: 5),
                                   FormBuilderTextField(
                                     obscureText: obsecure,
                                     name: 'password',
@@ -178,7 +232,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                                     keyboardType: TextInputType.visiblePassword,
                                     textInputAction: TextInputAction.done,
                                     decoration: InputDecoration(
-                                      labelText: "PASSWORD",
+                                      labelText: "Password",
                                       labelStyle: MyText.caption(context),
                                       suffixIcon: GestureDetector(
                                         onTap: () {
@@ -262,9 +316,11 @@ class RegisterScreenState extends State<RegisterScreen> {
                               child: Text("CREATE ACCOUNT",
                                   style: MyText.headline(context)
                                       ?.copyWith(color: Colors.white)),
-                              onPressed: () {
+                              /* onPressed: () {
                                 addUser.email = _formKey
                                     .currentState?.fields['email']?.value;
+                                addUser.district = _formKey
+                                    .currentState?.fields['district']?.value;
                                 addUser.firstName = _formKey
                                     .currentState?.fields['first_name']?.value;
                                 addUser.name = _formKey
@@ -275,7 +331,34 @@ class RegisterScreenState extends State<RegisterScreen> {
                                     .currentState?.fields['last_name']?.value;
                                 model.registerUser(addUser);
                                 _formKey.currentState?.reset();
-                              },
+                              }, */
+                              onPressed: () async {
+                                // Save + validate first so currentState has the latest values
+                                final isValid = _formKey.currentState?.saveAndValidate() ?? false;
+                                if (!isValid) return;
+
+                                // Read values from the saved form state
+                                final vals = _formKey.currentState!.value;
+
+                                final addUser = AddUser(
+                                  firstName: vals['first_name'],
+                                  lastName:  vals['last_name'],
+                                  email:     vals['email'],
+                                  district:  vals['district'],
+                                  password:  vals['password'],
+                                  // name will be composed in toJson() from first/last
+                                );
+
+                                // (Optional) quick sanity log
+                                debugPrint('Payload: ${addUser.toJson()}');
+
+                                // Await the async call so we only reset after success/failure UI is shown
+                                await context.read<UserController>().registerUser(addUser);
+
+                                // Only reset if you REALLY want to clear the form after a submission
+                                // _formKey.currentState?.reset();
+                              }
+
                             ),
                           ),
                         ),

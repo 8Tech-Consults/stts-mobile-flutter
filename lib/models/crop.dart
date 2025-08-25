@@ -1,3 +1,4 @@
+import 'package:STTS/models/Sr4Model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'crop.g.dart';
 
@@ -16,5 +17,10 @@ class Crop {
 
   factory Crop.fromJson(Map<String, dynamic> json) {
     return _$CropFromJson(json);
+  }
+
+  @override
+  String toString() {
+    return 'Crop{id: $id, name: $name}';
   }
 }

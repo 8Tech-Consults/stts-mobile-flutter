@@ -1,3 +1,4 @@
+import 'package:STTS/models/crop.dart';
 import 'package:STTS/models/planting_returns.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'assigned_sub_grower.g.dart';
@@ -35,7 +36,7 @@ class AssignedSubGrower {
   String? status;
   String? variety;
   String? size;
-  String? crop;
+  Crop? crop;
 
   AssignedSubGrower({
     this.id,

@@ -27,7 +27,7 @@ class UserController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void registerUser(AddUser addUser) async {
+  Future<void> registerUser(AddUser addUser) async {
     loading = true;
     notifyListeners();
 
@@ -41,6 +41,28 @@ class UserController extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
+
+  /* Future<void> registerUser(AddUser addUser) async {
+    loading = true;
+    notifyListeners();
+
+    try {
+      final res = await UserRepository.register(addUser);
+
+      if (res.success) {
+        MethodHelpers.showSuccessWithNoActionButton("User registered successfully");
+      } else {
+        // Show server-provided reason
+        MethodHelpers.showErrorBarWithNoActionButton(res.message.isNotEmpty ? res.message : "Registration failed");
+      }
+    } catch (e) {
+      MethodHelpers.dioErrorHandler(e); // shows network/HTTP errors
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  } */
+
 
   void login(String username, String password) async {
     loading = true;

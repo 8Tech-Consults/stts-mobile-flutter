@@ -7,6 +7,13 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MethodHelpers {
+  int columnsForWidth(double w) {
+    if (w >= 1200) return 4;
+    if (w >= 900)  return 3;
+    if (w >= 600)  return 2;
+    return 1;
+  }
+
   static void showErrorBarWithNoActionButton(String message,
       {SnackPosition snackPosition = SnackPosition.BOTTOM}) {
     Get.showSnackbar(GetBar(
@@ -44,6 +51,7 @@ class MethodHelpers {
           "Couldn't load this page due to unexpected error");
     }
   }
+  
 
   static void dioErrorHandler(dynamic err, {bool isAcctBassed = false}) {
     try {

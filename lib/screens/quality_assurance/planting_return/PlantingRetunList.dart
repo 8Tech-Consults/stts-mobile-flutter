@@ -1,22 +1,12 @@
 import 'package:STTS/Constants/stts_uganda_exports.dart';
 import 'package:STTS/controllers/planting_controller.dart';
 import 'package:STTS/models/assigned_sub_grower.dart';
-import 'package:STTS/models/planting_returns.dart';
 import 'package:STTS/screens/quality_assurance/planting_return/initialize_planting_form.dart';
-import 'package:STTS/utils/Utils.dart';
 import 'package:STTS/widgets/inspection_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutx/widgets/text/text.dart';
-import 'package:flutx/widgets/widgets.dart';
-import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
+import 'package:get/get.dart';
 import '../../../models/PlantingReturnModel.dart';
-import '../../../models/RespondModel.dart';
-import '../../../theme/app_notifier.dart';
-import '../../../theme/app_theme.dart';
-import '../../../utils/app_config.dart';
-import '../../../widgets/my_widgets.dart';
+
 
 // ignore: must_be_immutable
 class PlantingRetunList extends StatefulWidget {
@@ -114,7 +104,7 @@ class PlantingRetunListState extends State<PlantingRetunList> {
                       color: CustomTheme.primary,
                       backgroundColor: Colors.white,
                       child: model.inspections.isEmpty
-                          //TODO IF basic user
+                          // TODO IF basic user
                           // child: model.plantingReturns.isEmpty
                           ? MyWidgets.my_empty_widget(context,
                               'You have not created any planting return. Press the "+" button in top right conner to create one.')
@@ -158,6 +148,8 @@ class PlantingRetunListState extends State<PlantingRetunList> {
   SingleProduct(AssignedInpection item) {
     return Row(
       children: [
+      if (locator<UserController>().user?.roles[0].name ==
+                    "Inspector")
         InkWell(
           onTap: () {
             Get.to(InitializePlantingReturnForm(

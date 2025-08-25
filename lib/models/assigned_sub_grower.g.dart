@@ -24,8 +24,7 @@ Map<String, dynamic> _$AssignedInpectionToJson(AssignedInpection instance) =>
       'planting_return': instance.plantingReturns,
     };
 
-AssignedSubGrower _$AssignedSubGrowerFromJson(Map<String, dynamic> json) =>
-    AssignedSubGrower(
+AssignedSubGrower _$AssignedSubGrowerFromJson(Map<String, dynamic> json) =>AssignedSubGrower(
       id: json['id'] as int?,
       name: json['name'] as String?,
       gpsLatitude: json['gps_latitude'] as String?,
@@ -34,11 +33,15 @@ AssignedSubGrower _$AssignedSubGrowerFromJson(Map<String, dynamic> json) =>
       variety: json['variety'] as String?,
       size: json['size'] as String?,
       plantingdate: json['planting_date'] as String?,
-      crop: json['crop'] as String?,
+      crop: json['crop']== null
+          ? null
+          : Crop.fromJson(json['crop'] as Map<String, dynamic>),
+
+      
     );
 
-Map<String, dynamic> _$AssignedSubGrowerToJson(AssignedSubGrower instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AssignedSubGrowerToJson(AssignedSubGrower instance) 
+  =><String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'gps_latitude': instance.gpsLatitude,

@@ -6,11 +6,13 @@ import '../Constants/constants.dart';
 
 class UserRepository {
   // Create a single, reusable Dio instance
-  final Dio _dio = Dio(BaseOptions(
-    baseUrl: Constants.baseUrl,
-    connectTimeout: Duration(milliseconds: Constants.timeOut),
-    responseType: ResponseType.json,
-  ));
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    ),
+  );
 
   // A private method to handle Dio exceptions gracefully
   _handleDioException(DioException e) {
@@ -43,10 +45,7 @@ class UserRepository {
     throw Exception(errorMessage);
   }
 
-  static Future<User> login(
-    String username,
-    String password,
-  ) async {
+  static Future<User> login(String username, String password) async {
     final dio = UserRepository()._dio;
     try {
       final response = await dio.post(
@@ -62,15 +61,69 @@ class UserRepository {
       throw Exception('Login failed');
     }
   }
+  
 
-  static Future<void> register(AddUser addUser) async {
+  /* static Future<void> register(AddUser addUser) async {
     final dio = UserRepository()._dio;
     try {
       // Use dio.post() for POST requests; it's more expressive than dio.request()
-      await dio.post('register', data: addUser);
+      final response = await dio.post('register', data: addUser.toJson());
+      // print("Response: ${response.data}");
+      return response.data;
     } on DioException catch (e) {
       // Catch Dio-specific errors and rethrow with a custom message
       UserRepository()._handleDioException(e);
     }
+
+  } */
+ static Future<ApiResponse> register(AddUser addUser) async {
+  final dio = UserRepository()._dio;
+  try {
+    final response = await dio.post(
+      'register',
+      data: addUser.toJson(),
+      options: Options(
+        headers: {'Content-Type': 'application/json'}, // ensure JSON
+      ),
+    );
+
+    // Strong checks
+    final status = response.statusCode ?? 0;
+    if (status < 200 || status >= 300) {
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+        type: DioExceptionType.badResponse,
+        error: 'HTTP $status',
+      );
+    }
+
+    // Parse your API’s contract
+    final body = response.data;
+    if (body is Map<String, dynamic>) {
+      return ApiResponse.fromJson(body);
+    } else {
+      // If your API returns plain text or something else
+      return ApiResponse(success: true, message: 'OK', data: body);
+    }
+  } on DioException catch (e) {
+    UserRepository()._handleDioException(e);
+    rethrow; // important: propagate to caller
   }
+}
+
+}
+
+
+class ApiResponse {
+  final bool success;
+  final String message;
+  final dynamic data;
+  ApiResponse({required this.success, required this.message, this.data});
+
+  factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
+    success: json['success'] == true,            // be strict
+    message: (json['message'] ?? '').toString(),
+    data: json['data'],
+  );
 }

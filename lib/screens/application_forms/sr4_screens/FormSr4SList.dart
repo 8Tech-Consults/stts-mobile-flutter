@@ -1,17 +1,7 @@
-import 'package:STTS/controllers/srform_controller.dart';
-import 'package:STTS/models/FormSr4Model.dart';
-import 'package:STTS/models/Sr4Model.dart';
-import 'package:STTS/utils/Utils.dart';
-import 'package:STTS/widgets/my_widgets.dart';
+
 import 'package:STTS/widgets/sr_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutx/flutx.dart';
-import 'package:flutx/widgets/text/text.dart';
-import 'package:flutx/widgets/widgets.dart';
-import 'package:provider/provider.dart';
+
 import '../../../Constants/stts_uganda_exports.dart';
-import '../../../theme/app_theme.dart';
-import '../../../utils/app_config.dart';
 
 // ignore: must_be_immutable
 class FormSr4SList extends StatefulWidget {

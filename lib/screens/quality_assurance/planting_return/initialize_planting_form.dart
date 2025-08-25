@@ -9,8 +9,10 @@ import '../../../models/PlantingReturnModel.dart';
 
 class InitializePlantingReturnForm extends StatefulWidget {
   final AssignedInpection assignedInpection;
-  const InitializePlantingReturnForm(
-      {super.key, required this.assignedInpection});
+  const InitializePlantingReturnForm({
+    super.key,
+    required this.assignedInpection,
+  });
 
   @override
   State<InitializePlantingReturnForm> createState() =>
@@ -59,12 +61,13 @@ class InitializePlantingReturnFormState
                       Navigator.pop(context);
                     },
                     child: Container(
-                        padding: FxSpacing.x(0),
-                        child: const Icon(
-                          CupertinoIcons.clear,
-                          color: Colors.white,
-                          size: 20,
-                        )),
+                      padding: FxSpacing.x(0),
+                      child: const Icon(
+                        CupertinoIcons.clear,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 15),
@@ -87,20 +90,22 @@ class InitializePlantingReturnFormState
                             padding: EdgeInsets.all(15),
                             child: CircularProgressIndicator(
                               strokeWidth: 2.0,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.red),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.red,
+                              ),
                             ),
                           ),
                         )
                       : InkWell(
                           onTap: () {},
                           child: Container(
-                              padding: FxSpacing.x(10),
-                              child: const Icon(
-                                CupertinoIcons.check_mark,
-                                size: 25,
-                                color: Colors.white,
-                              )),
+                            padding: FxSpacing.x(10),
+                            child: const Icon(
+                              CupertinoIcons.check_mark,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                 ],
               ),
@@ -115,108 +120,158 @@ class InitializePlantingReturnFormState
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return Container(
-                                padding: const EdgeInsets.all(0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                        left: 15,
-                                        top: 5,
-                                        right: 15,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Crop",
-                                            ),
-                                            initialValue:
-                                                "${widget.assignedInpection.assignedSubGrower?.crop}",
-                                            name: "crop",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Crop'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Variety",
-                                            ),
-                                            initialValue:
-                                                "${widget.assignedInpection.assignedSubGrower?.variety}",
-                                            name: "variety",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Variety'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderDropdown(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Seed class",
-                                            ),
-                                            name: "seed_class",
-                                            dropdownColor: Colors.white,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'This field '),
-                                            items: [
-                                              'Pre-Basic',
-                                              'Certificate seed',
-                                              'Basic seed',
-                                              'Quality declared seed',
-                                            ]
-                                                .map((options) =>
-                                                    DropdownMenuItem(
-                                                      value: options,
-                                                      child: Text(options),
-                                                    ))
-                                                .toList(),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          FormBuilderDropdown(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Select Crop variety",
-                                            ),
-                                            name: "variety",
-                                            dropdownColor: Colors.white,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context,
-                                                    'Select Crop variety'),
-                                            items: model.cropVarieties
-                                                .map(
-                                                  (options) => DropdownMenuItem(
-                                                    value:
-                                                        options.name ?? "N/A",
-                                                    child: Text(options.name
-                                                        .toString()),
+                              padding: const EdgeInsets.all(0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      left: 15,
+                                      top: 5,
+                                      right: 15,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Grower Name",
+                                              ),
+                                          initialValue: widget
+                                              .assignedInpection
+                                              .assignedSubGrower
+                                              ?.name,
+                                          name: "",
+                                          readOnly: true,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Grower Name',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Planting date",
+                                              ),
+                                          initialValue:
+                                              "${widget.assignedInpection.assignedSubGrower?.plantingdate}",
+                                          name: "plantingdate",
+                                          readOnly: true,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Planting date',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          // keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Crop",
+                                              ),
+                                          initialValue: widget.assignedInpection.assignedSubGrower?.crop?.name,
+                                          name: "crop",
+                                          readOnly: true,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Crop',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Variety",
+                                              ),
+                                          // initialValue:
+                                          //     "${model.getVarietyName(widget.assignedInpection.assignedSubGrower?.variety)}",
+                                              
+                                          initialValue:
+                                              "${widget.assignedInpection.assignedSubGrower?.variety}",
+                                          name: "variety",
+                                          readOnly: true,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Variety',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderDropdown(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Seed class",
+                                              ),
+                                          name: "seed_class",
+                                          dropdownColor: Colors.white,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'This field ',
+                                              ),
+                                          items:
+                                              [
+                                                    'Pre-Basic',
+                                                    'Certificate seed',
+                                                    'Basic seed',
+                                                    'Quality declared seed',
+                                                  ]
+                                                  .map(
+                                                    (options) =>
+                                                        DropdownMenuItem(
+                                                          value: options,
+                                                          child: Text(options),
+                                                        ),
+                                                  )
+                                                  .toList(),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderDropdown(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText:
+                                                    "Select Crop variety",
+                                              ),
+                                          name: "variety",
+                                          dropdownColor: Colors.white,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Select Crop variety',
+                                              ),
+                                          items: model.cropVarieties
+                                              .map(
+                                                (options) => DropdownMenuItem(
+                                                  value: options.name ?? "N/A",
+                                                  child: Text(
+                                                    options.name.toString(),
                                                   ),
-                                                )
-                                                .toList(),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        if(widget.assignedInpection.assignedSubGrower?.status == '2')
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
                                               ListTile(
                                                 title: const Text(
-                                                    'Initialize form'),
+                                                  'Initialize form',
+                                                ),
                                                 leading: Radio(
                                                   value: 1,
                                                   groupValue: selectedOption,
@@ -229,12 +284,13 @@ class InitializePlantingReturnFormState
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(height: 50),
-                                        ],
-                                      ),
+                                        const SizedBox(height: 50),
+                                      ],
                                     ),
-                                  ],
-                                ));
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                           childCount: 1, // 1000 list items
                         ),
@@ -251,8 +307,9 @@ class InitializePlantingReturnFormState
                               padding: EdgeInsets.all(15),
                               child: CircularProgressIndicator(
                                 strokeWidth: 2.0,
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.red),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.red,
+                                ),
                               ),
                             ),
                           )
@@ -261,9 +318,10 @@ class InitializePlantingReturnFormState
                             onPressed: () {
                               if (!_fKey.currentState!.validate()) {
                                 Utils.showSnackBar(
-                                    "Please Check errors in the form and fix them first.",
-                                    context,
-                                    background_color: Colors.red);
+                                  "Please Check errors in the form and fix them first.",
+                                  context,
+                                  background_color: Colors.red,
+                                );
                                 return;
                               } else {
                                 // addPlantingReturn.crop =
@@ -278,9 +336,12 @@ class InitializePlantingReturnFormState
                                 // print(
                                 //    "ajajahahhaha:${jsonEncode(addPlantingReturn)}");
                                 model.updatePlantingReturn(
-                                    updatePlantingReturn,
-                                    widget.assignedInpection.assignedSubGrower
-                                        ?.id);
+                                  updatePlantingReturn,
+                                  widget
+                                      .assignedInpection
+                                      .assignedSubGrower
+                                      ?.id,
+                                );
                               }
                             },
                             backgroundColor: CustomTheme.primary,
@@ -288,8 +349,9 @@ class InitializePlantingReturnFormState
                               "SUBMIT",
                               fontSize: 18,
                               color: customTheme.cookifyOnPrimary,
-                            )),
-                  )
+                            ),
+                          ),
+                  ),
                 ],
               ),
             ),
@@ -301,7 +363,7 @@ class InitializePlantingReturnFormState
 
   final _fKey = GlobalKey<FormBuilderState>();
 
-//end pick varieties
+  //end pick varieties
 
   Future<void> pick_gps() async {
     Position p = await Utils.get_device_location();
@@ -341,11 +403,12 @@ class _InternetCheckDialog extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Center(
-                  child: Icon(
-                Icons.arrow_back,
-                size: 40,
-                color: theme.colorScheme.onBackground.withAlpha(220),
-              )),
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 40,
+                  color: theme.colorScheme.onBackground.withAlpha(220),
+                ),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
@@ -354,23 +417,27 @@ class _InternetCheckDialog extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Center(
-                  child: FxText("Please turn on internet", fontWeight: 500)),
+                child: FxText("Please turn on internet", fontWeight: 500),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Center(
                 child: FxButton(
-                    elevation: 2,
-                    borderRadiusAll: 4,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: FxText("CREATE ANOTHER TASK",
-                        fontWeight: 600,
-                        letterSpacing: 0.3,
-                        color: theme.colorScheme.onPrimary)),
+                  elevation: 2,
+                  borderRadiusAll: 4,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: FxText(
+                    "CREATE ANOTHER TASK",
+                    fontWeight: 600,
+                    letterSpacing: 0.3,
+                    color: theme.colorScheme.onPrimary,
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

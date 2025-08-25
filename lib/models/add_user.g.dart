@@ -11,6 +11,7 @@ AddUser _$AddUserFromJson(Map<String, dynamic> json) => AddUser(
       lastName: json['last_name'] as String?,
       email: json['email'] as String?,
       name: json['name'] as String?,
+      district: json['district'] as String?,
       password: json['password'] as String?,
     );
 
@@ -20,4 +21,5 @@ Map<String, dynamic> _$AddUserToJson(AddUser instance) => <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
       'name': instance.name,
+      'district': instance.district,
     };
