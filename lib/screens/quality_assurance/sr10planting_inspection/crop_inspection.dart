@@ -230,7 +230,7 @@ class CropInspectionState extends State<CropInspection> {
                                           initialValue: widget.inspection.form?.isolationDistance,
                                           decoration: customTheme
                                               .inputDecoration3(
-                                                labelText: "Enter isolation distance",
+                                                labelText: "Enter isolation distance(in meters)",
                                               ),
                                           name: "isolation_distance",
                                           textInputAction: TextInputAction.next,
@@ -329,7 +329,7 @@ class CropInspectionState extends State<CropInspection> {
                                               TextInputAction.newline,
                                         ),
                                         const SizedBox(height: 10),
-                                        if(widget.inspection.form?.status == '1' || widget.inspection.form?.status == '2')
+                                        if(widget.inspection.form?.isActive == '1' && (widget.inspection.form?.status == '1' || widget.inspection.form?.status == '2' ))
                                           Column(
                                             mainAxisAlignment:
                                                   MainAxisAlignment.start,
@@ -447,7 +447,7 @@ class CropInspectionState extends State<CropInspection> {
                       ),
                     ],
                   ),
-                  if(widget.inspection.form?.status == '1' || widget.inspection.form?.status == '2')
+                  if(widget.inspection.form?.isActive == '1' && (widget.inspection.form?.status == '1' || widget.inspection.form?.status == '2'))
                     Positioned(
                       bottom: 0,
                       left: 0,
@@ -511,6 +511,7 @@ class CropInspectionState extends State<CropInspection> {
                                     widget.inspection.form!.stage.toString(),
                                   );
                                   model.submitCropInspection(
+                                    context,
                                     addInspection,
                                     widget.inspection.form?.id,
                                     widget.isCrop,

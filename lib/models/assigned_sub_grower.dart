@@ -10,10 +10,7 @@ class AssignedInpection {
   @JsonKey(name: 'planting_return')
   PlantingReturns? plantingReturns;
 
-  AssignedInpection({
-    this.assignedSubGrower,
-    this.plantingReturns,
-  });
+  AssignedInpection({this.assignedSubGrower, this.plantingReturns});
   Map toJson() {
     return _$AssignedInpectionToJson(this);
   }
@@ -36,6 +33,7 @@ class AssignedSubGrower {
   String? status;
   String? variety;
   String? size;
+  @JsonKey(name: 'crop_obj')
   Crop? crop;
 
   AssignedSubGrower({
@@ -48,6 +46,7 @@ class AssignedSubGrower {
     this.size,
     this.plantingdate,
     this.crop,
+    // this.cropOBJ
   });
   Map toJson() {
     return _$AssignedSubGrowerToJson(this);

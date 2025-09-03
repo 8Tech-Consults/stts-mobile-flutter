@@ -43,6 +43,7 @@ class InspectionWidget extends StatelessWidget {
                           color: Colors.grey.shade900,
                         ),
                       ),
+                      
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Container(
@@ -70,6 +71,21 @@ class InspectionWidget extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 6,
+                    right: 6,
+                  ),
+                  child: FxText(
+                    "Crop: ${item.assignedSubGrower?.crop?.name}",
+                    fontSize: 15,
+                    height: 1.1,
+                    color: Colors.grey.shade900,
+                  ),
+                ),
                   const SizedBox(
                     height: 5,
                   ),
@@ -153,6 +169,7 @@ class InspectionWidget extends StatelessWidget {
                         color: Colors.grey.shade900,
                       ),
                     ),
+                    
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Container(
@@ -179,6 +196,21 @@ class InspectionWidget extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 6,
+                    right: 6,
+                  ),
+                  child: FxText(
+                    "Crop: ${item.assignedSubGrower?.crop?.name}",
+                    fontSize: 15,
+                    height: 1.1,
+                    color: Colors.grey.shade900,
+                  ),
                 ),
                 const SizedBox(
                   height: 5,

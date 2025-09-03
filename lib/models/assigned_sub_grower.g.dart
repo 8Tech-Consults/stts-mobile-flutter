@@ -33,10 +33,10 @@ AssignedSubGrower _$AssignedSubGrowerFromJson(Map<String, dynamic> json) =>Assig
       variety: json['variety'] as String?,
       size: json['size'] as String?,
       plantingdate: json['planting_date'] as String?,
-      crop: json['crop']== null
+    //   crop: json['crop'] as String,
+      crop: json['crop_obj']== null
           ? null
-          : Crop.fromJson(json['crop'] as Map<String, dynamic>),
-
+          : Crop.fromJson(json['crop_obj'] as Map<String, dynamic>),
       
     );
 
@@ -50,5 +50,6 @@ Map<String, dynamic> _$AssignedSubGrowerToJson(AssignedSubGrower instance)
       'status': instance.status,
       'variety': instance.variety,
       'size': instance.size,
-      'crop': instance.crop,
+      'crop_obj': instance.crop,
+      
     };

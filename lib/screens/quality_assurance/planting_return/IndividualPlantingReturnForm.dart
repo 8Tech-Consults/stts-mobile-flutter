@@ -71,12 +71,13 @@ class IndividualPlantingReturnFormState
                       Navigator.pop(context);
                     },
                     child: Container(
-                        padding: FxSpacing.x(0),
-                        child: const Icon(
-                          CupertinoIcons.clear,
-                          color: Colors.white,
-                          size: 20,
-                        )),
+                      padding: FxSpacing.x(0),
+                      child: const Icon(
+                        CupertinoIcons.clear,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 15),
@@ -99,20 +100,22 @@ class IndividualPlantingReturnFormState
                             padding: EdgeInsets.all(15),
                             child: CircularProgressIndicator(
                               strokeWidth: 2.0,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.red),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.red,
+                              ),
                             ),
                           ),
                         )
                       : InkWell(
                           onTap: () {},
                           child: Container(
-                              padding: FxSpacing.x(10),
-                              child: const Icon(
-                                CupertinoIcons.check_mark,
-                                size: 25,
-                                color: Colors.white,
-                              )),
+                            padding: FxSpacing.x(10),
+                            child: const Icon(
+                              CupertinoIcons.check_mark,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                 ],
               ),
@@ -127,308 +130,326 @@ class IndividualPlantingReturnFormState
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return Container(
-                                padding: const EdgeInsets.all(0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                        left: 15,
-                                        top: 5,
-                                        right: 15,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText:
-                                                  "Garden Size (in Accre)",
-                                            ),
-                                            name: "size",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context,
-                                                    'Garden Size (in Acre)'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderDropdown(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Select Crop",
-                                            ),
-                                            name: "crop",
-                                            dropdownColor: Colors.white,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Select Crop'),
-                                            items: model.crops
-                                                .map(
-                                                  (options) => DropdownMenuItem(
-                                                    value: options.name,
-                                                    child: Text(options.name
-                                                        .toString()),
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderDropdown(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Seed class",
-                                            ),
-                                            name: "seed_class",
-                                            dropdownColor: Colors.white,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'This field '),
-                                            items: [
-                                              'Pre-Basic',
-                                              'Certificate seed',
-                                              'Basic seed',
-                                              'Quality declared seed',
-                                            ]
-                                                .map((options) =>
-                                                    DropdownMenuItem(
-                                                      value: options,
-                                                      child: Text(options),
-                                                    ))
-                                                .toList(),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          FormBuilderDropdown(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Select Crop variety",
-                                            ),
-                                            name: "variety",
-                                            dropdownColor: Colors.white,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context,
-                                                    'Select Crop variety'),
-                                            items: model.cropVarieties
-                                                .map(
-                                                  (options) => DropdownMenuItem(
-                                                    value:
-                                                        options.name ?? "N/A",
-                                                    child: Text(options.name
-                                                        .toString()),
-                                                  ),
-                                                )
-                                                .toList(),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          FormBuilderTextField(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Field name",
-                                            ),
-                                            textCapitalization:
-                                                TextCapitalization.sentences,
-                                            name: "field_name",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Filed name'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Person responsible ",
-                                            ),
-                                            name: "name",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context,
-                                                    'Person responsible'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          FormBuilderTextField(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "District",
-                                            ),
-                                            textCapitalization:
-                                                TextCapitalization.sentences,
-                                            name: "district",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'District'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Sub-County",
-                                            ),
-                                            keyboardType: TextInputType.text,
-                                            name: "subcounty",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Sub County '),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 15),
-                                          FormBuilderTextField(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Village",
-                                            ),
-                                            textCapitalization:
-                                                TextCapitalization.sentences,
-                                            name: "village",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Village'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderDateTimePicker(
-                                            name: 'planting_date',
-                                            // onChanged: _onChanged,
-                                            inputType: InputType.date,
-                                            decoration: const InputDecoration(
-                                              labelText: 'Planting date',
-                                            ),
-                                            initialTime: const TimeOfDay(
-                                                hour: 8, minute: 0),
-                                            initialValue: DateTime.now(),
-                                            // enabled: true,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText:
-                                                  "Quantity planted (in KGs)",
-                                            ),
-                                            name: "quantity_planted",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context,
-                                                    'Quantity planted'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText:
-                                                  "Expected yield (in Metric tonnes)",
-                                            ),
-                                            name: "expected_yield",
-                                            keyboardType: TextInputType.number,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Expected yield'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.phone,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Phone number",
-                                            ),
-                                            name: "phone_number",
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Phone number'),
-                                            textInputAction:
-                                                TextInputAction.next,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Longitude",
-                                            ),
-                                            readOnly: true,
-                                            onTap: () {
-                                              pick_gps();
-                                            },
-                                            textCapitalization:
-                                                TextCapitalization.sentences,
-                                            name: "gps_longitude",
-                                            minLines: 2,
-                                            maxLines: 3,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Longitude'),
-                                            textInputAction:
-                                                TextInputAction.newline,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            readOnly: true,
-                                            onTap: () {
-                                              pick_gps();
-                                            },
-                                            keyboardType: TextInputType.number,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Latitude",
-                                            ),
-                                            textCapitalization:
-                                                TextCapitalization.sentences,
-                                            name: "gps_latitude",
-                                            minLines: 2,
-                                            maxLines: 3,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Latitude'),
-                                            textInputAction:
-                                                TextInputAction.newline,
-                                          ),
-                                          const SizedBox(height: 10),
-                                          FormBuilderTextField(
-                                            keyboardType:
-                                                TextInputType.multiline,
-                                            decoration:
-                                                customTheme.inputDecoration3(
-                                              labelText: "Detail",
-                                            ),
-                                            textCapitalization:
-                                                TextCapitalization.sentences,
-                                            name: "detail",
-                                            minLines: 3,
-                                            maxLines: 6,
-                                            validator: MyWidgets
-                                                .my_validator_field_required(
-                                                    context, 'Detail'),
-                                            textInputAction:
-                                                TextInputAction.newline,
-                                          ),
-                                          const SizedBox(height: 50),
-                                        ],
-                                      ),
+                              padding: const EdgeInsets.all(0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      left: 15,
+                                      top: 5,
+                                      right: 15,
                                     ),
-                                  ],
-                                ));
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText:
+                                                    "Garden Size (in Accre)",
+                                              ),
+                                          name: "size",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Garden Size (in Acre)',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderDropdown(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Select Crop",
+                                              ),
+                                          name: "crop",
+                                          dropdownColor: Colors.white,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Select Crop',
+                                              ),
+                                          items: model.crops
+                                              .map(
+                                                (options) => DropdownMenuItem(
+                                                  value: options.name,
+                                                  child: Text(
+                                                    options.name.toString(),
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderDropdown(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Seed class",
+                                              ),
+                                          name: "seed_class",
+                                          dropdownColor: Colors.white,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'This field ',
+                                              ),
+                                          items:
+                                              [
+                                                    'Pre-Basic',
+                                                    'Certificate seed',
+                                                    'Basic seed',
+                                                    'Quality declared seed',
+                                                  ]
+                                                  .map(
+                                                    (options) =>
+                                                        DropdownMenuItem(
+                                                          value: options,
+                                                          child: Text(options),
+                                                        ),
+                                                  )
+                                                  .toList(),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderDropdown(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText:
+                                                    "Select Crop variety",
+                                              ),
+                                          name: "variety",
+                                          dropdownColor: Colors.white,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Select Crop variety',
+                                              ),
+                                          items: model.cropVarieties
+                                              .map(
+                                                (options) => DropdownMenuItem(
+                                                  value: options.name ?? "N/A",
+                                                  child: Text(
+                                                    options.name.toString(),
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Field name",
+                                              ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "field_name",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Filed name',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.text,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText:
+                                                    "Person responsible ",
+                                              ),
+                                          name: "name",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Person responsible',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "District",
+                                              ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "district",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'District',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Sub-County",
+                                              ),
+                                          keyboardType: TextInputType.text,
+                                          name: "subcounty",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Sub County ',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 15),
+                                        FormBuilderTextField(
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Village",
+                                              ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "village",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Village',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderDateTimePicker(
+                                          name: 'planting_date',
+                                          // onChanged: _onChanged,
+                                          inputType: InputType.date,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Planting date',
+                                          ),
+                                          initialTime: const TimeOfDay(
+                                            hour: 8,
+                                            minute: 0,
+                                          ),
+                                          initialValue: DateTime.now(),
+                                          // enabled: true,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText:
+                                                    "Quantity planted (in KGs)",
+                                              ),
+                                          name: "quantity_planted",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Quantity planted',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          decoration: customTheme.inputDecoration3(
+                                            labelText:
+                                                "Expected yield (in Metric tonnes)",
+                                          ),
+                                          name: "expected_yield",
+                                          keyboardType: TextInputType.number,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Expected yield',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.phone,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Phone number",
+                                              ),
+                                          name: "phone_number",
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Phone number',
+                                              ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Longitude",
+                                              ),
+                                          readOnly: true,
+                                          onTap: () {
+                                            pick_gps();
+                                          },
+                                          // textCapitalization:
+                                          //     TextCapitalization.sentences,
+                                          name: "gps_longitude",
+                                          minLines: 2,
+                                          maxLines: 3,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Longitude',
+                                              ),
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          readOnly: true,
+                                          onTap: () {
+                                            pick_gps();
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Latitude",
+                                              ),
+                                          // textCapitalization:
+                                          //     TextCapitalization.sentences,
+                                          name: "gps_latitude",
+                                          minLines: 2,
+                                          maxLines: 3,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Latitude',
+                                              ),
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        FormBuilderTextField(
+                                          keyboardType: TextInputType.multiline,
+                                          decoration: customTheme
+                                              .inputDecoration3(
+                                                labelText: "Detail",
+                                              ),
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
+                                          name: "detail",
+                                          minLines: 3,
+                                          maxLines: 6,
+                                          validator:
+                                              MyWidgets.my_validator_field_required(
+                                                context,
+                                                'Detail',
+                                              ),
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                        ),
+                                        const SizedBox(height: 50),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                           childCount: 1, // 1000 list items
                         ),
@@ -445,8 +466,9 @@ class IndividualPlantingReturnFormState
                               padding: EdgeInsets.all(15),
                               child: CircularProgressIndicator(
                                 strokeWidth: 2.0,
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.red),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.red,
+                                ),
                               ),
                             ),
                           )
@@ -455,26 +477,36 @@ class IndividualPlantingReturnFormState
                             onPressed: () {
                               if (!_fKey.currentState!.validate()) {
                                 Utils.showSnackBar(
-                                    "Please Check errors in the form and fix them first.",
-                                    context,
-                                    background_color: Colors.red);
+                                  "Please Check errors in the form and fix them first.",
+                                  context,
+                                  background_color: Colors.red,
+                                );
                                 return;
                               } else {
                                 addPlantingReturn.crop =
                                     _fKey.currentState?.fields['crop']?.value;
                                 addPlantingReturn.variety = _fKey
-                                    .currentState?.fields['variety']?.value
+                                    .currentState
+                                    ?.fields['variety']
+                                    ?.value
                                     .toString();
                                 addPlantingReturn.seedClass = _fKey
-                                    .currentState?.fields['seed_class']?.value;
+                                    .currentState
+                                    ?.fields['seed_class']
+                                    ?.value;
                                 addPlantingReturn.size = int.parse(
-                                    _fKey.currentState?.fields['size']?.value);
+                                  _fKey.currentState?.fields['size']?.value,
+                                );
                                 addPlantingReturn.name =
                                     _fKey.currentState?.fields['name']?.value;
                                 addPlantingReturn.district = _fKey
-                                    .currentState?.fields['district']?.value;
+                                    .currentState
+                                    ?.fields['district']
+                                    ?.value;
                                 addPlantingReturn.subcounty = _fKey
-                                    .currentState?.fields['subcounty']?.value;
+                                    .currentState
+                                    ?.fields['subcounty']
+                                    ?.value;
                                 addPlantingReturn.plantingDate = _fKey
                                     .currentState
                                     ?.fields['planting_date']
@@ -482,8 +514,11 @@ class IndividualPlantingReturnFormState
                                     .toString();
 
                                 addPlantingReturn.quantityPlanted = int.parse(
-                                    _fKey.currentState
-                                        ?.fields['quantity_planted']?.value);
+                                  _fKey
+                                      .currentState
+                                      ?.fields['quantity_planted']
+                                      ?.value,
+                                );
 
                                 addPlantingReturn.phoneNumber = _fKey
                                     .currentState
@@ -502,17 +537,24 @@ class IndividualPlantingReturnFormState
                                 addPlantingReturn.detail =
                                     _fKey.currentState?.fields['detail']?.value;
                                 addPlantingReturn.village = _fKey
-                                    .currentState?.fields['village']?.value;
+                                    .currentState
+                                    ?.fields['village']
+                                    ?.value;
 
                                 addPlantingReturn.expectedYield = int.parse(
-                                    _fKey.currentState?.fields['expected_yield']
-                                        ?.value);
+                                  _fKey
+                                      .currentState
+                                      ?.fields['expected_yield']
+                                      ?.value,
+                                );
                                 addPlantingReturn.fieldName = _fKey
-                                    .currentState?.fields['field_name']?.value;
+                                    .currentState
+                                    ?.fields['field_name']
+                                    ?.value;
                                 addPlantingReturn.administratorId =
                                     locator<UserController>().user?.id;
 
-                                model.submitPlantingReturn(addPlantingReturn);
+                                model.submitPlantingReturn(addPlantingReturn, context);
                               }
                             },
                             backgroundColor: CustomTheme.primary,
@@ -520,8 +562,9 @@ class IndividualPlantingReturnFormState
                               "SUBMIT",
                               fontSize: 18,
                               color: customTheme.cookifyOnPrimary,
-                            )),
-                  )
+                            ),
+                          ),
+                  ),
                 ],
               ),
             ),
@@ -533,7 +576,7 @@ class IndividualPlantingReturnFormState
 
   final _fKey = GlobalKey<FormBuilderState>();
 
-//end pick varieties
+  //end pick varieties
 
   Future<void> pick_gps() async {
     Position p = await Utils.get_device_location();
@@ -573,11 +616,12 @@ class _InternetCheckDialog extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Center(
-                  child: Icon(
-                Icons.arrow_back,
-                size: 40,
-                color: theme.colorScheme.onBackground.withAlpha(220),
-              )),
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 40,
+                  color: theme.colorScheme.onBackground.withAlpha(220),
+                ),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
@@ -586,23 +630,27 @@ class _InternetCheckDialog extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Center(
-                  child: FxText("Please turn on internet", fontWeight: 500)),
+                child: FxText("Please turn on internet", fontWeight: 500),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),
               child: Center(
                 child: FxButton(
-                    elevation: 2,
-                    borderRadiusAll: 4,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: FxText("CREATE ANOTHER TASK",
-                        fontWeight: 600,
-                        letterSpacing: 0.3,
-                        color: theme.colorScheme.onPrimary)),
+                  elevation: 2,
+                  borderRadiusAll: 4,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: FxText(
+                    "CREATE ANOTHER TASK",
+                    fontWeight: 600,
+                    letterSpacing: 0.3,
+                    color: theme.colorScheme.onPrimary,
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

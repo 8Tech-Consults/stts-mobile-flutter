@@ -38,8 +38,11 @@ class PlantingInspectionListState extends State<PlantingInspectionList> {
   // ignore: non_constant_identifier_names
   bool is_loading = false;
 
-  Future<void> _onRefresh(BuildContext _context) async {
-    return;
+  // Future<void> _onRefresh(BuildContext _context) async {
+  //   return;
+  // }
+  Future<void> _onRefresh() async {
+    return  plantingController.fetchAssignedS10s(locator<UserController>().user?.id);
   }
 
   @override
@@ -72,7 +75,7 @@ class PlantingInspectionListState extends State<PlantingInspectionList> {
                       ),
                     )
                   : RefreshIndicator(
-                      onRefresh: _do_refresh,
+                      onRefresh: _onRefresh,
                       color: CustomTheme.primary,
                       backgroundColor: Colors.white,
                       child: model.assignedS10s.isEmpty
@@ -86,6 +89,7 @@ class PlantingInspectionListState extends State<PlantingInspectionList> {
                                       return AssignedWidget(
                                         isCrop: false,
                                         item: model.assignedS10s[index],
+                                        onReload: _onRefresh
                                       );
                                     },
                                     childCount: model
@@ -103,7 +107,7 @@ class PlantingInspectionListState extends State<PlantingInspectionList> {
   }
 
   // ignore: non_constant_identifier_names
-  Future<void> _do_refresh() async {
-    return await _onRefresh(context);
-  }
+  // Future<void> _do_refresh() async {
+  //   return await _onRefresh(context);
+  // }
 }

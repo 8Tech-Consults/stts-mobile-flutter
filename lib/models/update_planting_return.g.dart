@@ -10,10 +10,12 @@ UpdatePlantingReturn _$UpdatePlantingReturnFromJson(
         Map<String, dynamic> json) =>
     UpdatePlantingReturn(
       status: json['status'] as String?,
+      variety: json['variety'] as String?,
     );
 
 Map<String, dynamic> _$UpdatePlantingReturnToJson(
         UpdatePlantingReturn instance) =>
     <String, dynamic>{
       'status': instance.status,
+      'variety': instance.variety,
     };

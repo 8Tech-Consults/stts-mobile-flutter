@@ -11,28 +11,33 @@ import 'package:get/get.dart';
 class AssignedWidget extends StatelessWidget {
   final Inspection item;
   final bool isCrop;
-  const AssignedWidget({super.key, required this.item, required this.isCrop});
+  final VoidCallback? onReload;
+  const AssignedWidget({super.key, required this.item, required this.isCrop, this.onReload,});
+  
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         InkWell(
-          onTap: () {
+          onTap: () async {
             if (locator<UserController>().user?.roles[0].name != "Basic User" &&
                 item.form?.status != "4") {
-              Get.to(
-                CropInspection(
-                  inspection: item,
-                  isCrop: isCrop,
-                ),
-              );
+              // Get.to(() => CropInspection(inspection: item, isCrop: isCrop));
+              final result = await Get.to(() => CropInspection(inspection: item, isCrop: isCrop));
+              if (result == true) {
+                onReload?.call();
+              }
             }
           },
           child: Container(
             width: (MediaQuery.of(context).size.width - 50),
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+            padding: const EdgeInsets.only(
+              top: 10,
+              bottom: 10,
+              left: 10,
+              right: 10,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -41,10 +46,7 @@ class AssignedWidget extends StatelessWidget {
                   children: [
                     if (item.form?.cropVariety?.name != null)
                       Padding(
-                        padding: const EdgeInsets.only(
-                          left: 6,
-                          right: 6,
-                        ),
+                        padding: const EdgeInsets.only(left: 6, right: 6),
                         child: FxText(
                           "Variety: ${item.form?.cropVariety?.name}",
                           fontSize: 15,
@@ -54,15 +56,10 @@ class AssignedWidget extends StatelessWidget {
                       ),
                   ],
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 if (item.form?.sizeOfField != null)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 6,
-                      right: 6,
-                    ),
+                    padding: const EdgeInsets.only(left: 6, right: 6),
                     child: FxText(
                       "Field Size: ${item.form?.sizeOfField}",
                       fontSize: 15,
@@ -70,15 +67,10 @@ class AssignedWidget extends StatelessWidget {
                       color: Colors.grey.shade900,
                     ),
                   ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 if (item.subGrower?.plantingDate != null)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 6,
-                      right: 6,
-                    ),
+                    padding: const EdgeInsets.only(left: 6, right: 6),
                     child: FxText(
                       "Planting Date: ${item.subGrower?.plantingDate}",
                       fontSize: 15,
@@ -86,15 +78,10 @@ class AssignedWidget extends StatelessWidget {
                       color: Colors.grey.shade900,
                     ),
                   ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 if (item.user != null)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 6,
-                      right: 6,
-                    ),
+                    padding: const EdgeInsets.only(left: 6, right: 6),
                     child: FxText(
                       "Grower name : ${item.user}",
                       fontSize: 15,
@@ -102,15 +89,10 @@ class AssignedWidget extends StatelessWidget {
                       color: Colors.grey.shade900,
                     ),
                   ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 if (item.inspectionType != null)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 6,
-                      right: 6,
-                    ),
+                    padding: const EdgeInsets.only(left: 6, right: 6),
                     child: FxText(
                       "Inpection type : ${item.inspectionType}",
                       fontSize: 15,
@@ -118,20 +100,32 @@ class AssignedWidget extends StatelessWidget {
                       color: Colors.grey.shade900,
                     ),
                   ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(left: 6, right: 6, top: 0),
-                  child: Utils.tell_status_widget(item.form!.status.toString()),
+                  child: Row(
+                    children: [
+                      Utils.tell_status_widget(item.form!.status.toString()),
+                      SizedBox(width: 10),
+                      if (item.form!.isActive == '1')
+                        // {
+                        Text(
+                          '! Needs Attention',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                          ),
+                        ),
+
+                      // }
+                    ],
+                  ),
+                  //  Utils.tell_status_widget(item.form!.status.toString()),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  height: 1,
-                  color: Colors.grey[200],
-                )
+
+                const SizedBox(height: 10),
+                Divider(height: 1, color: Colors.grey[200]),
               ],
             ),
           ),

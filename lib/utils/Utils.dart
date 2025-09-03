@@ -879,8 +879,9 @@ class Utils {
   static Widget tell_status_widget(String status) {
     int val = Utils.int_parse(status);
     List<int> danger = [4, 3, 6, 8, 12, 15];
-    List<int> warning = [0, 2, 1, 7, 9, 10, 13, 16, 17, 18];
+    List<int> warning = [0, 2, 1,  9, 10, 13, 16, 17, 18];
     List<int> success = [5, 11, 14];
+    List<int> blue = [7];
     Color bg_color = Colors.grey.shade200;
     Color color = Colors.grey.shade900;
     if (danger.contains(val)) {
@@ -891,6 +892,9 @@ class Utils {
       color = Colors.black;
     } else if (success.contains(val)) {
       bg_color = Colors.green.shade700;
+      color = Colors.white;
+    }else if (blue.contains(val)) {
+      bg_color = const Color.fromARGB(255, 70, 136, 201);
       color = Colors.white;
     }
 
@@ -1051,26 +1055,26 @@ class Utils {
     return;
   } */
 
- static Future<void> logout() async {
-  try {
-    await LoggedInUserModel.delete_all_items();
-    await SeedLabelModel.delete_all_items();
-    await FormSr6Model.delete_all_items();
-    await QDSModel.delete_all_items();
+  static Future<void> logout() async {
+    try {
+      await LoggedInUserModel.delete_all_items();
+      await SeedLabelModel.delete_all_items();
+      await FormSr6Model.delete_all_items();
+      await QDSModel.delete_all_items();
 
-    // Optional: Clear any shared preferences or secure storage
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+      // Optional: Clear any shared preferences or secure storage
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
 
-    /* // Optional: Reset in-memory flags or singleton states
+      /* // Optional: Reset in-memory flags or singleton states
     AppSt.isLoggedIn = false;
     AppState.currentUser = null; */
 
-    print("Logout completed successfully");
-  } catch (e) {
-    print("Logout failed: $e");
+      print("Logout completed successfully");
+    } catch (e) {
+      print("Logout failed: $e");
+    }
   }
-}
 
   static Future<void> showConfirmDialog(
     BuildContext context,

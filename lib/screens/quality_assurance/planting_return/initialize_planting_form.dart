@@ -169,15 +169,17 @@ class InitializePlantingReturnFormState
                                               ),
                                           textInputAction: TextInputAction.next,
                                         ),
-                                        
+
                                         const SizedBox(height: 10),
                                         FormBuilderTextField(
-                                          // keyboardType: TextInputType.number,
+                                          // keyboardType: TextInputType.text,
                                           decoration: customTheme
                                               .inputDecoration3(
                                                 labelText: "Crop",
                                               ),
-                                          initialValue: widget.assignedInpection.assignedSubGrower?.crop?.name,
+                                          initialValue: widget
+                                              .assignedInpection
+                                              .assignedSubGrower?.crop?.name,
                                           name: "crop",
                                           readOnly: true,
                                           validator:
@@ -194,12 +196,12 @@ class InitializePlantingReturnFormState
                                               .inputDecoration3(
                                                 labelText: "Variety",
                                               ),
+
                                           // initialValue:
                                           //     "${model.getVarietyName(widget.assignedInpection.assignedSubGrower?.variety)}",
-                                              
                                           initialValue:
                                               "${widget.assignedInpection.assignedSubGrower?.variety}",
-                                          name: "variety",
+                                          name: "variety1",
                                           readOnly: true,
                                           validator:
                                               MyWidgets.my_validator_field_required(
@@ -254,7 +256,7 @@ class InitializePlantingReturnFormState
                                           items: model.cropVarieties
                                               .map(
                                                 (options) => DropdownMenuItem(
-                                                  value: options.name ?? "N/A",
+                                                  value: options.id.toString() ?? "N/A",
                                                   child: Text(
                                                     options.name.toString(),
                                                   ),
@@ -263,7 +265,11 @@ class InitializePlantingReturnFormState
                                               .toList(),
                                         ),
                                         const SizedBox(height: 20),
-                                        if(widget.assignedInpection.assignedSubGrower?.status == '2')
+                                        if (widget
+                                                .assignedInpection
+                                                .assignedSubGrower
+                                                ?.status ==
+                                            '2')
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -324,12 +330,12 @@ class InitializePlantingReturnFormState
                                 );
                                 return;
                               } else {
-                                // addPlantingReturn.crop =
+                                // updatePlantingReturn.crop =
                                 //     _fKey.currentState?.fields['crop']?.value;
-                                // addPlantingReturn.variety = _fKey
-                                //     .currentState?.fields['variety']?.value
-                                //     .toString();
-                                // addPlantingReturn.seedClass = _fKey
+                                updatePlantingReturn.variety = _fKey
+                                    .currentState?.fields['variety']?.value
+                                    .toString();
+                                // updatePlantingReturn.seedClass = _fKey
                                 //     .currentState?.fields['seed_class']?.value;
                                 updatePlantingReturn.status = "16";
 

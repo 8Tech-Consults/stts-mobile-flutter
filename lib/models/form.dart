@@ -24,7 +24,7 @@ class Form {
   @JsonKey(name: 'other_weeds')
   String? otherWeeds;
   @JsonKey(name: 'female_receptive')
-  bool? femaleReceptive;
+  String? femaleReceptive;
   @JsonKey(name: 'isolation_distance')
   String? isolationDistance;
   @JsonKey(name: 'proposed_distance')
@@ -43,6 +43,8 @@ class Form {
   String? sr10Number;
   @JsonKey(name: 'qds_declaration_id')
   String? qdsDeclarationId;
+  @JsonKey(name: 'is_active')
+  String? isActive;
 
   Form({
     this.id,
@@ -66,6 +68,7 @@ class Form {
     this.sr10Number,
     this.stage,
     this.qdsDeclarationId,
+    this.isActive,
   });
   Map toJson() {
     return _$FormToJson(this);

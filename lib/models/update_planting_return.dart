@@ -4,10 +4,9 @@ part 'update_planting_return.g.dart';
 @JsonSerializable()
 class UpdatePlantingReturn {
   String? status;
+  String? variety;
 
-  UpdatePlantingReturn({
-    this.status,
-  });
+  UpdatePlantingReturn({this.status,this.variety});
   Map toJson() {
     return _$UpdatePlantingReturnToJson(this);
   }

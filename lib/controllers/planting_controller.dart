@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'package:STTS/Constants/stts_uganda_exports.dart';
-import 'package:STTS/extensions/extensions.dart';
 import 'package:STTS/models/add_crop_declaration.dart';
 import 'package:STTS/models/add_inspection.dart';
 import 'package:STTS/models/add_planting_return.dart';
@@ -44,7 +44,7 @@ class PlantingController extends ChangeNotifier {
     }
   }
 
-  void submitPlantingReturn(AddPlantingReturn addPlantingReturn) async {
+  /* void submitPlantingReturn(AddPlantingReturn addPlantingReturn) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -59,6 +59,41 @@ class PlantingController extends ChangeNotifier {
     }
     isLoading = false;
     notifyListeners();
+  } */
+
+  void submitPlantingReturn(
+    AddPlantingReturn addPlantingReturn,
+    BuildContext context,
+  ) async {
+    try {
+      isLoading = true;
+      notifyListeners();
+
+      await PlantingRepository.submitPlantingReturn(addPlantingReturn);
+
+      isLoading = false;
+      notifyListeners();
+
+      MethodHelpers.showSuccessWithNoActionButton(
+        "Thank you for your submission",
+      );
+      Navigator.of(context).pop();
+    } on DioException catch (e) {
+      // Try to read the error message from API
+      final apiMessage = e.response?.data is Map<String, dynamic>
+          ? e.response?.data['message'] ?? e.response?.data['error']
+          : e.message;
+
+      MethodHelpers.showErrorBarWithNoActionButton(
+        apiMessage ?? "Something went wrong. Please try again.",
+      );
+    } catch (e) {
+      // Any other error not related to Dio
+      MethodHelpers.showErrorBarWithNoActionButton("Unexpected error: $e");
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
   void updatePlantingReturn(
@@ -71,14 +106,26 @@ class PlantingController extends ChangeNotifier {
       await PlantingRepository.updatePlantingReturn(updatePlantingReturn, id);
       isLoading = false;
       notifyListeners();
+
       MethodHelpers.showSuccessWithNoActionButton(
         "Thank you for your submission",
       );
+    } on DioException catch (e) {
+      // Try to read the error message from API
+      final apiMessage = e.response?.data is Map<String, dynamic>
+          ? e.response?.data['message'] ?? e.response?.data['error']
+          : e.message;
+
+      MethodHelpers.showErrorBarWithNoActionButton(
+        apiMessage ?? "Something went wrong. Please try again.",
+      );
     } catch (e) {
-      MethodHelpers.dioErrorHandler(e);
+      // Any other error not related to Dio
+      MethodHelpers.showErrorBarWithNoActionButton("Unexpected error: $e");
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
-    isLoading = false;
-    notifyListeners();
   }
 
   void updateQDSDeclaration(
@@ -102,6 +149,7 @@ class PlantingController extends ChangeNotifier {
   }
 
   void submitCropInspection(
+    BuildContext context,
     AddInspection addInspection,
     id,
     bool isCrop,
@@ -110,14 +158,27 @@ class PlantingController extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
       await PlantingRepository.submitInspection(addInspection, id, isCrop);
+
+      Navigator.pop(context, true);
+      
       MethodHelpers.showSuccessWithNoActionButton(
         "Thank you for your submission",
       );
+    } on DioException catch (e) {
+      // Try to read the error message from API
+      final apiMessage = e.response?.data is Map<String, dynamic>
+          ? e.response?.data['message'] ?? e.response?.data['error']
+          : e.message;
+
+      MethodHelpers.showErrorBarWithNoActionButton(
+        apiMessage ?? "Something went wrong. Please try again.",
+      );
     } catch (e) {
       MethodHelpers.dioErrorHandler(e);
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
-    isLoading = false;
-    notifyListeners();
   }
 
   void submitCropDeclaration(AddCropDeclaration addCropDeclaration) async {
@@ -166,7 +227,7 @@ class PlantingController extends ChangeNotifier {
       );
 
       inspections.addAll(results);
-    } catch (e) {
+    }  catch (e) {
       exception = e;
     }
 
@@ -201,9 +262,12 @@ class PlantingController extends ChangeNotifier {
       plantingReturns = [];
       List<AssignedInpection> results =
           await PlantingRepository.getPlantingReturns(userId);
-
+      debugPrint('good...........');
+      debugPrint(plantingReturns.toString());
       plantingReturns.addAll(results);
     } catch (e) {
+      log("🚀 App started");
+      debugPrint(e.toString());
       exception = e;
     }
 

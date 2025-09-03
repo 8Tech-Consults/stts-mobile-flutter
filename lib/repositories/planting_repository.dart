@@ -59,31 +59,46 @@ class PlantingRepository {
   }
 
   static Future<void> submitInspection(
-      AddInspection addInspection, id, bool isCrop) async {
+    AddInspection addInspection,
+    id,
+    bool isCrop,
+  ) async {
     BaseOptions baseOptions = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        connectTimeout: Duration(milliseconds: Constants.timeOut),
-        responseType: ResponseType.json);
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    );
     Dio dio = Dio(baseOptions);
 
     try {
       var url = isCrop ? 'qds-crop-inspection-2' : 'form-sr10s';
-      await dio.put('$url/$id', data: addInspection);
+      await dio.put(
+        '$url/$id',
+        data: addInspection.toJson(),
+        options: Options(headers: {"Content-Type": "application/json"}),
+      );
     } catch (__) {
       rethrow;
     }
   }
 
   static Future<void> submitPlantingReturn(
-      AddPlantingReturn addPlantingReturn) async {
+    AddPlantingReturn addPlantingReturn,
+  ) async {
     BaseOptions baseOptions = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        connectTimeout: Duration(milliseconds: Constants.timeOut),
-        responseType: ResponseType.json);
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    );
     Dio dio = Dio(baseOptions);
-
+    debugPrint(jsonEncode(addPlantingReturn.toJson()));
     try {
-      await dio.post('sub-growers', data: addPlantingReturn);
+      // await dio.post('sub-growers', data: addPlantingReturn);
+      await dio.post(
+        'sub-growers',
+        data: addPlantingReturn.toJson(),
+        options: Options(headers: {"Content-Type": "application/json"}),
+      );
     } catch (__) {
       rethrow;
     }
@@ -91,9 +106,10 @@ class PlantingRepository {
 
   static Future<void> submitSeedLabs(AddSeedLab addSeedLab) async {
     BaseOptions baseOptions = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        connectTimeout: Duration(milliseconds: Constants.timeOut),
-        responseType: ResponseType.json);
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    );
     Dio dio = Dio(baseOptions);
 
     try {
@@ -104,41 +120,57 @@ class PlantingRepository {
   }
 
   static Future<void> submitCropDeclaration(
-      AddCropDeclaration addCropDeclaration) async {
+    AddCropDeclaration addCropDeclaration,
+  ) async {
     BaseOptions baseOptions = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        connectTimeout: Duration(milliseconds: Constants.timeOut),
-        responseType: ResponseType.json);
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    );
     Dio dio = Dio(baseOptions);
 
     try {
-      await dio.post('form-crop-declarations', data: addCropDeclaration);
+      await dio.post(
+        'form-crop-declarations',
+        data: addCropDeclaration.toJson(),
+        options: Options(headers: {"Content-Type": "application/json"}),
+      );
     } catch (__) {
       rethrow;
     }
   }
 
   static Future<void> updatePlantingReturn(
-      UpdatePlantingReturn updatePlantingReturn, id) async {
+    UpdatePlantingReturn updatePlantingReturn,
+    id,
+  ) async {
     BaseOptions baseOptions = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        connectTimeout: Duration(milliseconds: Constants.timeOut),
-        responseType: ResponseType.json);
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    );
     Dio dio = Dio(baseOptions);
 
     try {
-      await dio.put('sub-growers/$id', data: updatePlantingReturn);
+      await dio.put(
+        'sub-growers/$id',
+        data: updatePlantingReturn.toJson(),
+        options: Options(headers: {"Content-Type": "application/json"}),
+      );
     } catch (__) {
       rethrow;
     }
   }
 
   static Future<void> updateQDSDeclaration(
-      UpdateCropDeclaration updateCropDeclaration, id) async {
+    UpdateCropDeclaration updateCropDeclaration,
+    id,
+  ) async {
     BaseOptions baseOptions = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        connectTimeout: Duration(milliseconds: Constants.timeOut),
-        responseType: ResponseType.json);
+      baseUrl: Constants.baseUrl,
+      connectTimeout: Duration(milliseconds: Constants.timeOut),
+      responseType: ResponseType.json,
+    );
     Dio dio = Dio(baseOptions);
 
     try {
@@ -165,9 +197,7 @@ class PlantingRepository {
 
       List<AssignedInpection> inspections = [];
       for (Map<String, dynamic> inspection in response.data) {
-        inspections.add(
-          AssignedInpection.fromJson(inspection),
-        );
+        inspections.add(AssignedInpection.fromJson(inspection));
       }
 
       return inspections;
@@ -193,9 +223,7 @@ class PlantingRepository {
 
       List<CropDeclaration> cropDeclarations = [];
       for (Map<String, dynamic> cropDeclaration in response.data) {
-        cropDeclarations.add(
-          CropDeclaration.fromJson(cropDeclaration),
-        );
+        cropDeclarations.add(CropDeclaration.fromJson(cropDeclaration));
       }
 
       return cropDeclarations;
@@ -221,9 +249,7 @@ class PlantingRepository {
 
       List<Inspection> assignedS10s = [];
       for (Map<String, dynamic> assignedS10 in response.data) {
-        assignedS10s.add(
-          Inspection.fromJson(assignedS10),
-        );
+        assignedS10s.add(Inspection.fromJson(assignedS10));
       }
 
       return assignedS10s;
@@ -247,9 +273,7 @@ class PlantingRepository {
 
       List<Inspection> assignedQDs = [];
       for (Map<String, dynamic> assignedQD in response.data) {
-        assignedQDs.add(
-          Inspection.fromJson(assignedQD),
-        );
+        assignedQDs.add(Inspection.fromJson(assignedQD));
       }
 
       return assignedQDs;
